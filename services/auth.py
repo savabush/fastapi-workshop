@@ -56,8 +56,8 @@ class AuthServices:
         try:
             payload = jwt.decode(
                 token,
-                settings.jwt_secret,
-                algorithms=[settings.jwt_algorithm]
+                settings.settings.jwt_secret,
+                algorithms=[settings.settings.jwt_algorithm]
             )
         except JWTError:
             raise NotAuthorized
@@ -75,19 +75,20 @@ class AuthServices:
     def create_token(cls, user: tables.User) -> Token:
         user_data = User.from_orm(user)
 
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
 
         payload = {
             'iat': now,
             'nbf': now,
-            'exp': now + datetime.timedelta(seconds=settings.jwt_expiration),
-            'sub': str(user_data.id)
+            'exp': now + datetime.timedelta(seconds=settings.settings.jwt_expiration),
+            'sub': str(user_data.id),
+            'user': user_data.dict()
         }
 
         token = jwt.encode(
             payload,
-            settings.jwt_secret,
-            algorithm=settings.jwt_algorithm
+            settings.settings.jwt_secret,
+            algorithm=settings.settings.jwt_algorithm
         )
 
         return Token(access_token=token)
