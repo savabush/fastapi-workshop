@@ -22,6 +22,7 @@ class ReportsService:
             ]
         )
         operations = []
+        next(reader)
         for row in reader:
             operation_data = OperationCreate.parse_obj(row)
             if operation_data.description == '':

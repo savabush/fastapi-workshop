@@ -7,7 +7,8 @@ from models.auth import User
 
 
 router = APIRouter(
-    prefix='/operations'
+    prefix='/operations',
+    tags=['operations']
 )
 
 
