@@ -24,7 +24,13 @@ class OperationService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         return operation
 
-    def get_list(self, user_id: int, kind: Optional[OperationKind] = None) -> List[tables.Operation]:
+    def get_list(self,
+                 user_id: int,
+                 kind: Optional[OperationKind] = None,
+                 page: int = 1
+                 ) -> List[tables.Operation]:
+        limit = 100
+        offset = page * limit
         query = (
             self.session
             .query(tables.Operation)
@@ -32,7 +38,7 @@ class OperationService:
         )
         if kind:
             query = query.filter_by(kind=kind)
-        operations = query.all()
+        operations = query.offset(offset - limit).limit(limit).all()
         return operations
 
     def get_by_id(self, user_id: int, operation_id: int) -> tables.Operation:

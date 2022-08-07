@@ -16,9 +16,10 @@ router = APIRouter(
 def get_operations(
         user: User = Depends(get_current_user),
         kind: Optional[OperationKind] = None,
+        page: int = 1,
         service: OperationService = Depends()
         ):
-    return service.get_list(kind=kind, user_id=user.id)
+    return service.get_list(kind=kind, user_id=user.id, page=page)
 
 
 @router.get('/{operation_id}', response_model=Operation)

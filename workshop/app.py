@@ -4,21 +4,22 @@ from api import router
 tags_metadata = [
     {
         'name': 'auth',
-        'descrpition': 'Авторизация и регистрация'
+        'description': 'Авторизация и регистрация'
     },
     {
         'name': 'operations',
-        'descrpition': 'Все об операциях по доходам и расходам'
+        'description': 'Все об операциях по доходам и расходам'
     },
     {
         'name': 'reports',
-        'descrpition': 'Импорт и экспорт CSV файлов'
+        'description': 'Импорт и экспорт CSV файлов'
     },
 ]
 
 app = FastAPI(
     title='Workshop',
     description='Сервис для учета личных расходов и доходов',
-    version='1.0'
+    version='1.0',
+    openapi_tags=tags_metadata
 )
 app.include_router(router)
