@@ -54,6 +54,6 @@ def update_operation(
         user: User = Depends(get_current_user),
         service: OperationService = Depends(),
 ):
-    service.delete(operation_id=operation_id)
+    service.delete(operation_id=operation_id, user_id=user.id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
