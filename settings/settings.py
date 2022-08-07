@@ -6,6 +6,10 @@ class Settings(BaseSettings):
     server_port: int
     database_url: str
 
+    jwt_secret: str
+    jwt_algorithm: str = 'HS256'
+    jwt_expiration: int = 1600
+
 
 settings = Settings(
     _env_file='.env',
