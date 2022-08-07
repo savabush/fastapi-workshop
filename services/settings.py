@@ -4,6 +4,7 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     server_host: str
     server_port: int
+    database_url: str
 
 
 settings = Settings(
