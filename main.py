@@ -1,5 +1,5 @@
 import uvicorn
-from services.settings import settings
+from settings.settings import settings
 
 
 def main():

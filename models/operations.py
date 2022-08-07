@@ -12,7 +12,10 @@ class OperationKind(str, Enum):
 
 class Operation(BaseModel):
     id: int
-    data: date
+    date: date
     kind: OperationKind
     amount: Decimal
     description: Optional[str]
+
+    class Config:
+        orm_mode = True
