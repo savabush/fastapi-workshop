@@ -1,10 +1,13 @@
 import uvicorn
+from services.settings import settings
 
 
 def main():
     uvicorn.run(
         'workshop.app:app',
-        reload=True
+        reload=True,
+        host=settings.server_host,
+        port=settings.server_port
     )
 
 
