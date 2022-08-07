@@ -29,6 +29,8 @@ class OperationService:
                  kind: Optional[OperationKind] = None,
                  page: int = 1
                  ) -> List[tables.Operation]:
+        if page < 1:
+            page = 1
         limit = 100
         offset = page * limit
         query = (

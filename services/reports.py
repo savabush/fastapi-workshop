@@ -42,13 +42,16 @@ class ReportsService:
             ],
             extrasaction='ignore'
         )
-
-        operations = self.operations_service.get_list(user_id=user_id)
-
         writer.writeheader()
-        for operation in operations:
-            operation_data = Operation.from_orm(operation)
-            writer.writerow(operation_data.dict())
+        page = 1
+        while True:
+            page_operations = self.operations_service.get_list(user_id=user_id, page=page)
+            if not page_operations:
+                break
+            for operation in self.operations_service.get_list(user_id=user_id, page=page):
+                operation_data = Operation.from_orm(operation)
+                writer.writerow(operation_data.dict())
+            page += 1
 
         output.seek(0)
         return output
