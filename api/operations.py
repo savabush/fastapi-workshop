@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from models.operations import Operation
 from typing import List, Optional
 from services.operations import OperationService
-from models.operations import OperationKind
+from models.operations import OperationKind, OperationCreate
 
 
 router = APIRouter(
@@ -17,3 +17,10 @@ def get_operations(
         ):
     return service.get_list(kind=kind)
 
+
+@router.post('/', response_model=Operation)
+def create_operation(
+        operation_data: OperationCreate,
+        service: OperationService = Depends(),
+):
+    return service.create(operation_data)
